@@ -4,6 +4,35 @@ import math
 
 brain=Brain()
 
+def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
+    left1 = x1
+    right1 = x1 + width1
+    bottom1 = y1
+    top1 = y1 + length1
+
+    left2 = x2
+    right2 = x2 + width2
+    bottom2 = y2
+    top2 = y2 + length2
+
+    if (right1 <= left2 or 
+        left1 >= right2 or 
+        top1 <= bottom2 or 
+        bottom1 >= top2):
+        return False
+        
+    return True
+    
+
+beanBagList = []
+class BeanBag:
+    def __init__(self, x, y, width, height):
+        beanBagList.append(self)
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+
 class Control:
     def __init__(self, bot):
         self.controller = Controller()
