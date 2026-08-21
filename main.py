@@ -10,13 +10,15 @@ class Control:
         self.bot = bot
     
     def update(self):
-        pass
+        jA = self.controller.axisA.position()
+
 
 class Bot:
     def __init__(self):
         # motors
         self.driveMotors = [Motor(Ports.PORT1, False), Motor(Ports.PORT2, False)]
         self.intakeMotor = Motor(Ports.PORT3, False)
+        self.cannonRotateMotors = None
         self.cannonMotors = None # not designed yet
         # sensor
         self.colorsensor = None
@@ -25,21 +27,32 @@ class Bot:
         self.inertiaSensor = Inertial()
     
     def forward(self):
-        pass
+        self.driveMotors[0].spin(FORWARD)
+        self.driveMotors[1].spin(FORWARD)
     
     def backward(self):
-        pass
+        self.driveMotors[0].spin(REVERSE)
+        self.driveMotors[1].spin(REVERSE)
     
     def right(self):
-        pass
-    
+        self.driveMotors[0].spin(FORWARD)
+        self.driveMotors[1].spin(REVERSE)
+
+    def left(self):
+        self.driveMotors[0].spin(REVERSE)
+        self.driveMotors[1].spin(FORWARD)
+
     def boost(self):
-        pass
+        motor_1.set_velocity(20, PERCENT)
+
 
     def intake(self):
         pass
     
-    def move(self):
+    def autoMove(self):
+        pass
+    
+    def cannonRotate(self):
         pass
 
 
