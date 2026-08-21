@@ -26,12 +26,21 @@ def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
 
 beanBagList = []
 class BeanBag:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y):
         beanBagList.append(self)
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+
+class Level:
+    def __init__(self, x, y, width, height, level):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.points = level
+        self.level = level
 
 class Control:
     def __init__(self, bot):
@@ -92,10 +101,8 @@ class Bot:
         self.driveMotors[1].spin(FORWARD)
 
     def boost(self):
-        self.driveMotors[0].set_velocity(75, PERCENT)
-        self.driveMotors[1].set_velocity(75, PERCENT)
-        #self.cannonMotors.set_velocity(75, PERCENT)
-
+        self.driveMotors[0].set_velocity(100, PERCENT)
+        self.driveMotors[1].set_velocity(100, PERCENT)
 
     def intake(self):
         pass
