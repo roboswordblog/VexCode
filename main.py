@@ -22,7 +22,7 @@ def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
         return False
         
     return True
-    
+
 
 beanBagList = []
 class BeanBag:
@@ -37,7 +37,11 @@ class Control:
     def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
+        self.controller.buttonEUp.pressed(self.bot.boost)
+        self.controller.buttonEUp.pressed(self.bot.boost)
+        self.controller.buttonEUp.pressed(self.bot.boost)
     
+
     def update(self):
         vAxis = self.controller.axisA.position()
         hAxis = self.controller.axisB.position()
@@ -51,6 +55,8 @@ class Control:
             self.bot.right()
         elif self.hAxis < -10:
             self.bot.left()
+        
+
 
 class Bot:
     def __init__(self):
@@ -63,12 +69,10 @@ class Bot:
         # motors
         self.driveMotors = [Motor(Ports.PORT1, False), Motor(Ports.PORT2, False)]
         self.intakeMotor = Motor(Ports.PORT3, False)
-        self.cannonRotateMotors = None
-        self.cannonMotors = None # not designed yet
+        self.cannonRotateMotors = [Motor(Ports.PORT4, False), Motor(Ports.PORT5, False)]
+        self.cannonMotors = [Motor(Ports.PORT6, False), Motor(Ports.PORT7, False)]
+
         # sensor
-        self.colorsensor = None
-        self.distanceSensorOne = None
-        self.distanceSensorTwo = None
         self.inertiaSensor = Inertial()
     
     def forward(self):
