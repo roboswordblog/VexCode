@@ -25,6 +25,12 @@ class Control:
 
 class Bot:
     def __init__(self):
+        # used to calculate
+        self.x = 0
+        self.y = 0
+        self.width = 0
+        self.height = 0
+
         # motors
         self.driveMotors = [Motor(Ports.PORT1, False), Motor(Ports.PORT2, False)]
         self.intakeMotor = Motor(Ports.PORT3, False)
@@ -53,7 +59,9 @@ class Bot:
         self.driveMotors[1].spin(FORWARD)
 
     def boost(self):
-        motor_1.set_velocity(20, PERCENT)
+        self.driveMotors[0].set_velocity(75, PERCENT)
+        self.driveMotors[1].set_velocity(75, PERCENT)
+        #self.cannonMotors.set_velocity(75, PERCENT)
 
 
     def intake(self):
@@ -65,4 +73,5 @@ class Bot:
     def cannonRotate(self):
         pass
 
-
+    def update(self):
+        pass
