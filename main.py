@@ -10,8 +10,18 @@ class Control:
         self.bot = bot
     
     def update(self):
-        jA = self.controller.axisA.position()
-
+        vAxis = self.controller.axisA.position()
+        hAxis = self.controller.axisB.position()
+        
+        if self.vAxis > 10:
+            self.bot.forward()
+        elif self.vAxis < -10:
+            self.bot.backward()
+        
+        if self.hAxis > 10:
+            self.bot.right()
+        elif self.hAxis < -10:
+            self.bot.left()
 
 class Bot:
     def __init__(self):
