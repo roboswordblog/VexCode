@@ -5,8 +5,12 @@ import math
 brain=Brain()
 
 class Control:
-    def __init__(self):
+    def __init__(self, bot):
         self.controller = Controller()
+        self.bot = bot
+    
+    def update(self):
+        pass
 
 class Bot:
     def __init__(self):
@@ -37,6 +41,5 @@ class Bot:
     
     def move(self):
         pass
-
 
 
