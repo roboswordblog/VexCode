@@ -136,7 +136,6 @@ def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
         
     return True
 
-# questions : why should i use sensors in vex 
 
 beanBagList = []
 class BeanBag:
