@@ -2,6 +2,18 @@ from vex import *
 import urandom
 import math
 
+def initializeRandomSeed():
+    wait(100, MSEC)
+    xaxis = brain_inertial.acceleration(XAXIS) * 1000
+    yaxis = brain_inertial.acceleration(YAXIS) * 1000
+    zaxis = brain_inertial.acceleration(ZAXIS) * 1000
+    systemTime = brain.timer.system() * 100
+    urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
+
+
+initializeRandomSeed()
+
+
 brain=Brain()
 
 def normalize_angle(angle):
@@ -136,6 +148,7 @@ def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
         
     return True
 
+# questions : why should i use sensors in vex 
 
 beanBagList = []
 class BeanBag:
@@ -192,13 +205,16 @@ class Bot:
         self.driveMotors = [Motor(Ports.PORT1, False), Motor(Ports.PORT2, False)]
         self.intakeMotor = Motor(Ports.PORT3, False)
         self.chainMotor =  Motor(Ports.PORT8, False)
-        self.cannonRotateMotors = [Motor(Ports.PORT4, False), Motor(Ports.PORT5, False)]
+        self.cannonRotateMotor = Ports.PORT4, False # other one will be the  car
         self.cannonMotors = [Motor(Ports.PORT6, False), Motor(Ports.PORT7, False)]
 
         # sensor
         self.inertiaSensor = Inertial()
         self.colorSensor = Optical(Ports.PORT9) 
-    
+
+        # stored movements
+        self.cannonRotateY = 0
+
     def forward(self):
         self.driveMotors[0].spin(FORWARD)
         self.driveMotors[1].spin(FORWARD)
@@ -219,14 +235,20 @@ class Bot:
         self.driveMotors[0].set_velocity(100, PERCENT)
         self.driveMotors[1].set_velocity(100, PERCENT)
 
-    def intake(self):
+
+    # NOTE: FOR INTAKE AND OUTTAKE I STILL HAVENT MEASURED THE TIME IT WILL TAKE FOR THEM
+    async def intake(self):
         self.intakeMotor.set_velocity(75, PERCENT)
         self.intakeMotor.spin(FORWARD)
-    
+
+    async def outtake(self):
+        self.intakeMotor.spin(REVERSE)
+
     def autoMove(self):
         pass
-    
-    def cannonRotate(self):
+
+
+    async def cannonRotate(self):
         pass
 
     def update(self):
