@@ -175,7 +175,7 @@ class Control:
         self.controller.buttonEUp.pressed(self.bot.boost)
         self.controller.buttonEUp.pressed(self.bot.boost)
         self.controller.buttonEUp.pressed(self.bot.boost)
-    
+
 
     def update(self):
         vAxis = self.controller.axisA.position()
@@ -240,13 +240,22 @@ class Bot:
     async def intake(self):
         self.intakeMotor.set_velocity(75, PERCENT)
         self.intakeMotor.spin(FORWARD)
+        wait(4, SECONDS)
 
     async def outtake(self):
         self.intakeMotor.spin(REVERSE)
+        wait(4, SECONDS)
+    
+    async def elevator(self):
+        self.elevatorMotor.
 
     def autoMove(self):
         pass
-
+    
+    def getAimParameters(self):
+        x1 = self.x
+        y1 = self.y
+        z1 = self.z
 
     async def cannonRotate(self):
         pass
@@ -254,3 +263,4 @@ class Bot:
     def update(self):
         pass
 
+brain.screen.print("")
