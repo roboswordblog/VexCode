@@ -20,7 +20,7 @@ def normalize_angle(angle):
     return (angle + 180) % 360 - 180
 
 
-def calculate_aim(
+def calculate_aim(  
     robot_x, robot_y, robot_z,
     target_x, target_y, target_z,
     robot_heading=0,
@@ -148,7 +148,6 @@ def check_collision(x1, y1, width1, length1, x2, y2, width2, length2):
         
     return True
 
-# questions : why should i use sensors in vex 
 
 beanBagList = []
 class BeanBag:
@@ -159,6 +158,7 @@ class BeanBag:
         self.width = width
         self.height = height
 
+# only real obsticle is level 4, so only that should be a collision object, and  that should also be included in the caalculation of the beanbag being shot.
 class Level:
     def __init__(self, x, y, width, height, level):
         self.x = x
@@ -172,8 +172,6 @@ class Control:
     def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
-        self.controller.buttonEUp.pressed(self.bot.boost)
-        self.controller.buttonEUp.pressed(self.bot.boost)
         self.controller.buttonEUp.pressed(self.bot.boost)
 
 
@@ -247,7 +245,7 @@ class Bot:
         wait(4, SECONDS)
     
     async def elevator(self):
-        self.elevatorMotor.
+        # self.elevatorMotor.
 
     def autoMove(self):
         pass
@@ -263,4 +261,20 @@ class Bot:
     def update(self):
         pass
 
-brain.screen.print("")
+brain.screen.print("THE CHEFS")
+
+# compression is only needed on the back side, so with a flip and  compression over there we  can make it drive
+# this is asumming that the bottom side of the gear isnt the culprite, which in that case we will need to put the other wheels and the smaller gear lower, and add the compressoin for the big gear.
+# or, if that happens, we can just use a small piece and connect it with the compressions so it doesn't interfere with the wheels
+
+bot = Bot()
+controller = Bot()
+mode = 1
+# 1 is controller, 2 is autonmous, 3 is autonomous but picking up 
+while True:
+    if self.mode == 1:
+        pass
+    
+    if  self.mode == 2:
+        pass
+    
