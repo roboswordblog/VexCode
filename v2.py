@@ -112,7 +112,10 @@ class Drivebase:
 
 class IntakeFlywheel:
     def __init__(self):
-        pass
+        self.intakeMotor = Motor(Ports.PORT3, False)
+        self.intakeMotor1 = Motor(Ports.PORT4, False)
+        self.flywheelMotor1 = Motor(Ports.PORT5, False)
+        self.flywheelMotor2 = Motor(Ports.PORT6, False)
 
 class Robot:
     def __init__(self, brain, inertial):
@@ -132,7 +135,9 @@ class Robot:
         if self.mode == "controller":
             self.controller.update()
 
+
 robot = Robot()
 while True:
     robot.update()
+    
     
