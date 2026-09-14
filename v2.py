@@ -24,9 +24,28 @@ colliders = {}
 
 #classes for bot
 
-class Remote:
-    def __init__(self):
-        pass
+    def __init__(self, bot):
+        self.controller = Controller()
+        self.bot = bot
+        self.controller.buttonEUp.pressed(self.bot.boost)
+        self.controller.buttonEUp.pressed(self.bot.boost)
+        self.controller.buttonEUp.pressed(self.bot.boost)
+
+
+    def update(self):
+        vAxis = self.controller.axisA.position()
+        hAxis = self.controller.axisB.position()
+        
+        if self.vAxis > 10:
+            self.bot.forward()
+        elif self.vAxis < -10:
+            self.bot.backward()
+        
+        if self.hAxis > 10:
+            self.bot.right()
+        elif self.hAxis < -10:
+            self.bot.left()
+            
 
 class Drivebase:
     def __init__(self):
