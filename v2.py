@@ -33,8 +33,8 @@ class Control:
 
 
         def update(self):
-        vAxis = self.controller.axisA.position()
-        hAxis = self.controller.axisB.position()
+        vAxis = self.controller.axisC.position()
+        hAxis = self.controller.axisD.position()
         DEADBAND = 10
     
         if vAxis > DEADBAND and hAxis > DEADBAND:
