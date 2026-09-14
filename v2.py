@@ -33,6 +33,10 @@ class Drivebase:
         self.motor1 = Motor(Ports.PORT1, False)
         self.motor2 = Motor(Ports.PORT2, False)
     
+    def reset(self):
+        self.motor1.set_velocity(100,PERCENT)
+        self.motor2.set_velocity(100,PERCENT)
+
     def motor1Encodding(self):
         return self.motor1.position(DEGREES)
     
@@ -43,6 +47,19 @@ class Drivebase:
         self.motor1.spin(FORWARD)
         self.motor2.spin(FORWARD)
     
+    def backward(self):
+        self.motor1.spin(REVERSE)
+        self.motor2.spin(REVERSE)
+    
+    def right(self):
+        self.motor1.spin(REVERSE)
+        self.motor2.spin(FORWARD)
+    
+    def left(self):
+        self.motor1.spin(FORWARD)
+        self.motor2.spin(REVERSE)
+    
+
 class IntakeFlywheel:
     def __init__(self):
         pass
@@ -53,6 +70,7 @@ class Robot:
         self.inertial = inertial
         self.x = 0
         self.y = 0
+        
     
     def odometry(self):
         pass
