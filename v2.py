@@ -24,9 +24,12 @@ colliders = {}
 
 #classes for bot
 class Control:
-    def __init__(self, bot):
+    def __init__(self, bot, intake):
         self.controller = Controller()
         self.bot = bot
+        self.intake = intake
+        self.controller.buttonEUp.pressed(self.intake.intake)
+
 
 
         def update(self):
@@ -60,6 +63,7 @@ class Control:
         
         else:
             self.bot.stop()
+        
             
 
 class Drivebase:
