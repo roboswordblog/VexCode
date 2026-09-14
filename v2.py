@@ -27,24 +27,39 @@ colliders = {}
     def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
-        self.controller.buttonEUp.pressed(self.bot.boost)
-        self.controller.buttonEUp.pressed(self.bot.boost)
-        self.controller.buttonEUp.pressed(self.bot.boost)
 
 
-    def update(self):
+        def update(self):
         vAxis = self.controller.axisA.position()
         hAxis = self.controller.axisB.position()
-        
-        if self.vAxis > 10:
+        DEADBAND = 10
+    
+        if vAxis > DEADBAND and hAxis > DEADBAND:
+            self.bot.forwardRight()
+            
+        elif vAxis > DEADBAND and hAxis < -DEADBAND:
+            self.bot.forwardLeft()
+            
+        elif vAxis < -DEADBAND and hAxis > DEADBAND:
+            self.bot.backwardRight()
+            
+        elif vAxis < -DEADBAND and hAxis < -DEADBAND:
+            self.bot.backwardLeft()
+            
+        elif vAxis > DEADBAND:
             self.bot.forward()
-        elif self.vAxis < -10:
+            
+        elif vAxis < -DEADBAND:
             self.bot.backward()
-        
-        if self.hAxis > 10:
+            
+        elif hAxis > DEADBAND:
             self.bot.right()
-        elif self.hAxis < -10:
+            
+        elif hAxis < -DEADBAND:
             self.bot.left()
+        
+        else:
+            self.bot.stop()
             
 
 class Drivebase:
