@@ -26,6 +26,9 @@ angley = 0
 def calculateXangle(self):
     pass
 
+def search(self):
+    # search for the motor thrust 
+    pass
 
 #classes for bot
 class Control:
