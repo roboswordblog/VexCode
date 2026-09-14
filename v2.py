@@ -116,6 +116,24 @@ class IntakeFlywheel:
         self.intakeMotor1 = Motor(Ports.PORT4, False)
         self.flywheelMotor1 = Motor(Ports.PORT5, False)
         self.flywheelMotor2 = Motor(Ports.PORT6, False)
+        self.flywheelMotor1.set_velocity(100,PERCENT)
+        self.flywheelMotor2.set_velocity(100,PERCENT)
+        self.intakeMotor1.set_velocity(85, PERCENT)
+        self.intakeMotor1.set_velocity(85, PERCENT)
+
+    def spinFlywheel(self):
+        self.flywheelMotor1.spin(REVERSE)
+        self.flywheelMotor2.spin(REVERSE)
+    
+    def intake(self):
+        self.intakeMotor1.spin(REVERSE)
+        self.intakeMotor2.spin(REVERSE)
+    
+    def run(self):
+        self.spinFlywheel()
+        self.intake()
+        wait(25,SECONDS)
+        
 
 class Robot:
     def __init__(self, brain, inertial):
