@@ -28,7 +28,7 @@ class Control:
         self.controller = Controller()
         self.bot = bot
         self.intake = intake
-        self.controller.buttonEUp.pressed(self.intake.intake)
+        self.controller.buttonEUp.pressed(self.intake.run)
 
 
 
@@ -135,5 +135,4 @@ class Robot:
 robot = Robot()
 while True:
     robot.update()
-    
     
