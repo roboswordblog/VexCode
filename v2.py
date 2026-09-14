@@ -23,7 +23,7 @@ colliders = {}
 
 
 #classes for bot
-
+class Control:
     def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
@@ -116,9 +116,20 @@ class Robot:
         self.inertial = inertial
         self.x = 0
         self.y = 0
+        self.mode = "controller"
+        self.drivebase = Drivebase
+        self.controller = Control(self.drivebase)
         
     
     def odometry(self):
         pass
+    
+    def update(self):
+        if self.mode == "controller":
+            self.controller.update()
+
+robot = Robot()
+while True:
+    robot.update()
     
     
