@@ -19,7 +19,12 @@ initializeRandomSeed()
 #dictionary for x's and y's
 colliders = {}
 
+#math variables
+angley = 0
+
 #math
+def calculateXangle(self):
+    pass
 
 
 #classes for bot
