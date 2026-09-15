@@ -150,6 +150,7 @@ class Robot:
         self.x = 0
         self.y = 0
         self.mode = "controller"
+        self.get = "loader"
         self.drivebase = Drivebase
         self.controller = Control(self.drivebase)
         
@@ -157,13 +158,25 @@ class Robot:
     def odometry(self):
         pass
     
+    def auto(self):
+        if self.mode == "search":
+            pass
+        
+        if self.mode == "loader":
+            pass
+    
+    
     def update(self):
         if self.mode == "controller":
             self.controller.update()
+        
+        elif self.mode == "driver":
+            self.auto()
+
 
 
 robot = Robot()
 while True:
-    robot.update()
+    robot.update(brain, inertial)
     
     
