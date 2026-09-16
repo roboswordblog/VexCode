@@ -135,7 +135,8 @@ class IntakeFlywheel:
         self.flywheelMotor1.set_velocity(100,PERCENT)
         self.flywheelMotor2.set_velocity(100,PERCENT)
         self.intakeMotor.set_velocity(85, PERCENT)
-        self.
+        self.aimx,aimy = 0, 0
+        
 
     def spinFlywheel(self):
         self.flywheelMotor1.spin(REVERSE)
@@ -144,6 +145,9 @@ class IntakeFlywheel:
     def intake(self):
         self.intakeMotor.spin(REVERSE)
     
+    def calculateAim(self):
+
+
     def run(self):
         global beanbagshot
         beanbagshot += 1
