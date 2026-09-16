@@ -39,9 +39,6 @@ def calculateYangle(target_x, target_y, target_z, v0, g=9.81):
     return math.degrees(launch_rad)
 
 
-def search(self): 
-    pass
-
 class Control:
     def __init__(self, bot, intake):
         self.controller = Controller()
@@ -181,7 +178,7 @@ class Robot:
 
             if closestBeanBagPos == None:
                 closestBeanBagPos = (diffx, diffy)
-                continue
+                   continue
 
             pytDiff = math.sqrt(diffx^2 + diffy^2)
             ollpyt = math.sqrt(closestBeanBagPos[0]^2+closestBeanBagPos[1]^2)
@@ -199,7 +196,10 @@ class Robot:
         if self.moveTarget == ():
             self.moveTarget = closestBeanbagPos
         
-        if self.x == self.moveTarget
+        if abs(self.x-self.moveTarget[0]) >= 3 and abs(self.x-self.moveTarget[1]) == 3:
+            pass            
+
+
 
     def auto(self):
         if self.mode == "search":
