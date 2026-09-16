@@ -22,6 +22,8 @@ colliders = {}
 #math variables
 angley = 0
 
+
+beanbagshot = 0
 #math
 def calculateXangle(self):
     pass
@@ -138,6 +140,8 @@ class IntakeFlywheel:
         self.intakeMotor2.spin(REVERSE)
     
     def run(self):
+        global beanbagshot
+        beanbagshot += 1
         self.spinFlywheel()
         self.intake()
         wait(25,SECONDS)
@@ -164,6 +168,7 @@ class Robot:
         closestBeanBagPos = None
 
         for value in colliders["bluebean"]:
+            x,y = value
             diffx, diffy = (abs(x - value[0]), abs(y - value[0]))
 
             if closestBeanBagPos == None:
@@ -173,8 +178,8 @@ class Robot:
             pytDiff = math.sqrt(diffx^2 + diffy^2)
             ollpyt = math.sqrt(closestBeanBagPos[0]^2+closestBeanBagPos[1]^2)
             
-            if pytDiff > ollpyt:
-
+            if pytDiff < ollpyt:
+                closestBeanBagPos = value
             
 
 
