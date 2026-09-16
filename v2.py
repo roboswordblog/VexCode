@@ -153,11 +153,31 @@ class Robot:
         self.get = "loader"
         self.drivebase = Drivebase
         self.controller = Control(self.drivebase)
-        
+        self.moveTarget = ()
+        self.aimTarget = None
+    
     
     def odometry(self):
         pass
     
+    def closestBeanbagPos(self):
+        closestBeanBagPos = None
+
+        for value in colliders["bluebean"]:
+            diffx, diffy = (abs(x - value[0]), abs(y - value[0]))
+
+            if closestBeanBagPos == None:
+                closestBeanBagPos = (diffx, diffy)
+                continue
+
+            pytDiff = math.sqrt(diffx^2 + diffy^2)
+            ollpyt = math.sqrt(closestBeanBagPos[0]^2+closestBeanBagPos[1]^2)
+            
+            if pytDiff > ollpyt:
+
+            
+
+
     def auto(self):
         if self.mode == "search":
             pass
@@ -167,6 +187,7 @@ class Robot:
     
     
     def update(self):
+        self.odometry()
         if self.mode == "controller":
             self.controller.update()
         
