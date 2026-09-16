@@ -16,23 +16,32 @@ def initializeRandomSeed():
     
 initializeRandomSeed()
 
-#dictionary for x's and y's
 colliders = {}
 
-#math variables
-angley = 0
-
-
 beanbagshot = 0
-#math
-def calculateXangle(self):
+
+def calculateXangle(target_x, target_y):
+    yaw_rad = math.atan2(target_y, target_x)
+    return math.degrees(yaw_rad)
+
+def calculateYangle(target_x, target_y, target_z, v0, g=9.81):
+    d = math.sqrt(target_x**2 + target_y**2)
+    a = g * (d ** 2)
+    b = -2 * (v0 ** 2) * d
+    c = (2 * (v0 ** 2) * target_z) + (g * (d ** 2))
+    
+    discriminant = (b ** 2) - (4 * a * c)
+    if discriminant < 0:
+        return None
+        
+    tan_theta = (-b - math.sqrt(discriminant)) / (2 * a)
+    launch_rad = math.atan(tan_theta)
+    return math.degrees(launch_rad)
+
+
+def search(self): 
     pass
 
-def search(self):
-    # search for the motor thrust 
-    pass
-
-#classes for bot
 class Control:
     def __init__(self, bot, intake):
         self.controller = Controller()
@@ -128,16 +137,15 @@ class IntakeFlywheel:
         self.flywheelMotor2 = Motor(Ports.PORT6, False)
         self.flywheelMotor1.set_velocity(100,PERCENT)
         self.flywheelMotor2.set_velocity(100,PERCENT)
-        self.intakeMotor1.set_velocity(85, PERCENT)
-        self.intakeMotor1.set_velocity(85, PERCENT)
+        self.intakeMotor.set_velocity(85, PERCENT)
+        self.
 
     def spinFlywheel(self):
         self.flywheelMotor1.spin(REVERSE)
         self.flywheelMotor2.spin(REVERSE)
     
     def intake(self):
-        self.intakeMotor1.spin(REVERSE)
-        self.intakeMotor2.spin(REVERSE)
+        self.intakeMotor.spin(REVERSE)
     
     def run(self):
         global beanbagshot
@@ -166,7 +174,7 @@ class Robot:
     
     def closestBeanbagPos(self):
         closestBeanBagPos = None
-
+        i = 0
         for value in colliders["bluebean"]:
             x,y = value
             diffx, diffy = (abs(x - value[0]), abs(y - value[0]))
@@ -180,8 +188,18 @@ class Robot:
             
             if pytDiff < ollpyt:
                 closestBeanBagPos = value
-            
+            i += 1
 
+        return closestBeanBagPos+(i)
+    
+    def removeBeanbag(self):
+        pass
+
+    def find(self):
+        if self.moveTarget == ():
+            self.moveTarget = closestBeanbagPos
+        
+        if self.x == self.moveTarget
 
     def auto(self):
         if self.mode == "search":
