@@ -1,3 +1,30 @@
+#region VEXcode Generated Robot Configuration
+from vex import *
+import urandom
+import math
+
+# Brain should be defined by default
+brain=Brain()
+
+# Robot configuration code
+brain_inertial = Inertial()
+controller = Controller()
+
+
+
+# generating and setting random seed
+def initializeRandomSeed():
+    wait(100, MSEC)
+    xaxis = brain_inertial.acceleration(XAXIS) * 1000
+    yaxis = brain_inertial.acceleration(YAXIS) * 1000
+    zaxis = brain_inertial.acceleration(ZAXIS) * 1000
+    systemTime = brain.timer.system() * 100
+    urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
+    
+# Initialize random seed 
+initializeRandomSeed()
+
+#endregion VEXcode Generated Robot Configuration
 from vex import *
 import urandom
 import math
@@ -40,15 +67,15 @@ def calculateYangle(target_x, target_y, target_z, v0, g=9.81):
 
 
 class Control:
-    def __init__(self, bot, intake):
+    def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
-        self.intake = intake
-        self.controller.buttonEUp.pressed(self.intake.run)
+        #self.intake = intake
+        # self.controller.buttonEUp.pressed(self.intake.run)
 
 
 
-        def update(self):
+    def update(self):
         vAxis = self.controller.axisC.position()
         hAxis = self.controller.axisD.position()
         DEADBAND = 10
@@ -114,14 +141,14 @@ class Drivebase:
         self.motor2.spin(REVERSE)
     
     def forwardLeft(self):
-        self.motor1.speed(90)
-        self.motor2.speed(50)
+        self.motor1.set_velocity(90, PERCENT)
+        self.motor2.set_velocity(50, PERCENT)
         self.motor1.spin(FORWARD)
         self.motor2.spin(REVERSE)
     
     def forwardRight(self):
-        self.motor1.speed(50)
-        self.motor2.speed(90)
+        self.motor1.set_velocity(50, PERCENT)
+        self.motor2.set_velocity(90, PERCENT)
         self.motor1.spin(REVERSE)
         self.motor2.spin(FORWARD)
         
@@ -146,7 +173,7 @@ class IntakeFlywheel:
         self.intakeMotor.spin(REVERSE)
     
     def calculateAim(self):
-
+        pass
 
     def run(self):
         global beanbagshot
@@ -182,7 +209,7 @@ class Robot:
 
             if closestBeanBagPos == None:
                 closestBeanBagPos = (diffx, diffy)
-                   continue
+                continue
 
             pytDiff = math.sqrt(diffx^2 + diffy^2)
             ollpyt = math.sqrt(closestBeanBagPos[0]^2+closestBeanBagPos[1]^2)
@@ -198,7 +225,7 @@ class Robot:
 
     def find(self):
         if self.moveTarget == ():
-            self.moveTarget = closestBeanbagPos
+            self.moveTarget = self.closestBeanbagPos()
         
         if abs(self.x-self.moveTarget[0]) >= 3 and abs(self.x-self.moveTarget[1]) == 3:
             pass            
@@ -223,8 +250,8 @@ class Robot:
 
 
 
-robot = Robot()
+robot = Robot(brain, brain_inertial)
 while True:
-    robot.update(brain, inertial)
+    robot.update()
     
     
