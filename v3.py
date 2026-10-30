@@ -1,18 +1,13 @@
-#region VEXcode Generated Robot Configuration
+
 from vex import *
 import urandom
 import math
 
-# Brain should be defined by default
 brain=Brain()
 
-# Robot configuration code
 brain_inertial = Inertial()
 controller = Controller()
 
-
-
-# generating and setting random seed
 def initializeRandomSeed():
     wait(100, MSEC)
     xaxis = brain_inertial.acceleration(XAXIS) * 1000
@@ -20,28 +15,9 @@ def initializeRandomSeed():
     zaxis = brain_inertial.acceleration(ZAXIS) * 1000
     systemTime = brain.timer.system() * 100
     urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
-    
-# Initialize random seed 
+
 initializeRandomSeed()
 
-#endregion VEXcode Generated Robot Configuration
-from vex import *
-import urandom
-import math
-
-brain=Brain()
-
-brain_inertial = Inertial()
-
-def initializeRandomSeed():
-    wait(100, MSEC)
-    xaxis = brain_inertial.acceleration(XAXIS) * 1000
-    yaxis = brain_inertial.acceleration(YAXIS) * 1000
-    zaxis = brain_inertial.acceleration(ZAXIS) * 1000
-    systemTime = brain.timer.system() * 100
-    urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
-    
-initializeRandomSeed()
 
 colliders = {}
 
@@ -70,9 +46,7 @@ class Control:
     def __init__(self, bot):
         self.controller = Controller()
         self.bot = bot
-        #self.intake = intake
         # self.controller.buttonEUp.pressed(self.intake.run)
-
 
 
     def update(self):
@@ -125,6 +99,7 @@ class Drivebase:
         
 
         
+class 
 
 class Robot:
     def __init__(self, brain, inertial):
