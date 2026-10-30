@@ -1,0 +1,200 @@
+#region VEXcode Generated Robot Configuration
+from vex import *
+import urandom
+import math
+
+# Brain should be defined by default
+brain=Brain()
+
+# Robot configuration code
+brain_inertial = Inertial()
+controller = Controller()
+
+
+
+# generating and setting random seed
+def initializeRandomSeed():
+    wait(100, MSEC)
+    xaxis = brain_inertial.acceleration(XAXIS) * 1000
+    yaxis = brain_inertial.acceleration(YAXIS) * 1000
+    zaxis = brain_inertial.acceleration(ZAXIS) * 1000
+    systemTime = brain.timer.system() * 100
+    urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
+    
+# Initialize random seed 
+initializeRandomSeed()
+
+#endregion VEXcode Generated Robot Configuration
+from vex import *
+import urandom
+import math
+
+brain=Brain()
+
+brain_inertial = Inertial()
+
+def initializeRandomSeed():
+    wait(100, MSEC)
+    xaxis = brain_inertial.acceleration(XAXIS) * 1000
+    yaxis = brain_inertial.acceleration(YAXIS) * 1000
+    zaxis = brain_inertial.acceleration(ZAXIS) * 1000
+    systemTime = brain.timer.system() * 100
+    urandom.seed(int(xaxis + yaxis + zaxis + systemTime)) 
+    
+initializeRandomSeed()
+
+colliders = {}
+
+beanbagshot = 0
+
+def calculateXangle(target_x, target_y):
+    yaw_rad = math.atan2(target_y, target_x)
+    return math.degrees(yaw_rad)
+
+def calculateYangle(target_x, target_y, target_z, v0, g=9.81):
+    d = math.sqrt(target_x**2 + target_y**2)
+    a = g * (d ** 2)
+    b = -2 * (v0 ** 2) * d
+    c = (2 * (v0 ** 2) * target_z) + (g * (d ** 2))
+    
+    discriminant = (b ** 2) - (4 * a * c)
+    if discriminant < 0:
+        return None
+        
+    tan_theta = (-b - math.sqrt(discriminant)) / (2 * a)
+    launch_rad = math.atan(tan_theta)
+    return math.degrees(launch_rad)
+
+
+class Control:
+    def __init__(self, bot):
+        self.controller = Controller()
+        self.bot = bot
+        #self.intake = intake
+        # self.controller.buttonEUp.pressed(self.intake.run)
+
+
+
+    def update(self):
+        pass
+        
+            
+
+class Drivebase:
+    def __init__(self):
+        self.motor1 = Motor(Ports.PORT1, False)
+        self.motor2 = Motor(Ports.PORT2, False)
+    
+    def reset(self):
+        self.motor1.set_velocity(90,PERCENT)
+        self.motor2.set_velocity(90,PERCENT)
+
+    def motor1Encodding(self):
+        return self.motor1.position(DEGREES)
+    
+    def motor2Encodding(self):
+        return self.motor2.position(DEGREES)
+    
+    def forward(self):
+        self.motor1.spin(FORWARD)
+        self.motor2.spin(FORWARD)
+    
+    def backward(self):
+        self.motor1.spin(REVERSE)
+        self.motor2.spin(REVERSE)
+    
+    def right(self):
+        self.motor1.spin(REVERSE)
+        self.motor2.spin(FORWARD)
+    
+    def left(self):
+        self.motor1.spin(FORWARD)
+        self.motor2.spin(REVERSE)
+    
+    def forwardLeft(self):
+        self.motor1.set_velocity(90, PERCENT)
+        self.motor2.set_velocity(50, PERCENT)
+        self.motor1.spin(FORWARD)
+        self.motor2.spin(REVERSE)
+    
+    def forwardRight(self):
+        self.motor1.set_velocity(50, PERCENT)
+        self.motor2.set_velocity(90, PERCENT)
+        self.motor1.spin(REVERSE)
+        self.motor2.spin(FORWARD)
+        
+
+        
+
+class Robot:
+    def __init__(self, brain, inertial):
+        self.brain = brain
+        self.inertial = inertial
+        self.x = 0
+        self.y = 0
+        self.mode = "controller"
+        self.get = "loader"
+        self.drivebase = Drivebase
+        self.controller = Control(self.drivebase)
+        self.moveTarget = ()
+        self.aimTarget = None
+    
+    
+    def odometry(self):
+        pass
+    
+    def closestBeanbagPos(self):
+        closestBeanBagPos = None
+        i = 0
+        for value in colliders["bluebean"]:
+            x,y = value
+            diffx, diffy = (abs(x - value[0]), abs(y - value[0]))
+
+            if closestBeanBagPos == None:
+                closestBeanBagPos = (diffx, diffy)
+                continue
+
+            pytDiff = math.sqrt(diffx^2 + diffy^2)
+            ollpyt = math.sqrt(closestBeanBagPos[0]^2+closestBeanBagPos[1]^2)
+            
+            if pytDiff < ollpyt:
+                closestBeanBagPos = value
+            i += 1
+
+        return closestBeanBagPos+(i)
+    
+    def removeBeanbag(self):
+        pass
+
+    def find(self):
+        if self.moveTarget == ():
+            self.moveTarget = self.closestBeanbagPos()
+        
+        if abs(self.x-self.moveTarget[0]) >= 3 and abs(self.x-self.moveTarget[1]) == 3:
+            pass            
+
+
+
+    def auto(self):
+        if self.mode == "search":
+            pass
+        
+        if self.mode == "loader":
+            pass
+    
+    
+    def update(self):
+        self.odometry()
+        if self.mode == "controller":
+            self.controller.update()
+        
+        elif self.mode == "driver":
+            self.auto()
+
+
+
+robot = Robot(brain, brain_inertial)
+while True:
+    robot.update()
+    
+    
