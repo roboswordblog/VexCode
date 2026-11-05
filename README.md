@@ -1,5 +1,4 @@
-THIS IS FOR VEX IQ ONLY 
-
+IM LOWK GONNA DO ACTUAL WORK THAT IS RELATIVE TO OUR THING so yea this is turning private in a week-4 days. The code will be posted when the competition is over.
 The goal of this is to use a linear slingshot(previosly a flywheel) + claw(previously roller intake), to take the beanbag, aim the catapult, and then shoot at the target. 
 
 There are 5 Different Main Classes to the Code:
